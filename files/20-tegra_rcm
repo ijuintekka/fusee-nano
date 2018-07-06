@@ -6,29 +6,29 @@ BINARY="/usr/bin/fusee-nano /usr/share/fusee-nano/payload.bin"
 APX_PRODID="955/7321/102"
 
 if [ "${ACTION}" = "add" ]; then
-    echo 0 > /sys/class/leds/a5-v11\:red\:power/brightness
-    if [ "${PRODUCT}" = "${APX_PRODID}" ]; then
-        ${BINARY}
-        for i in {1..4} ; do
-            sleep 1
-            echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
-        done
-    else
-    	sleep 3
-	    for i in $(ls /dev/sd*)
-	    do
-		    umount /mnt
-		    mount $i /mnt/
-		    if [ -f /mnt/payload.bin ]; then
-			    cp -f /mnt/payload.bin /usr/share/fusee-nano/
-			    umount /mnt
-                for i in {1..4} ; do
-                    sleep 1
-                    echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
-                done
-			    break
-		    fi
-	    done
-    fi
-    echo 255 > /sys/class/leds/a5-v11\:red\:power/brightness
+	echo 0 > /sys/class/leds/a5-v11\:red\:power/brightness
+	if [ "${PRODUCT}" = "${APX_PRODID}" ]; then
+		${BINARY}
+			for i in {1..4} ; do
+				sleep 1
+				echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
+			done
+	else
+		sleep 3
+		for i in $(ls /dev/sd*)
+			do
+			umount /mnt
+			mount $i /mnt/
+			if [ -f /mnt/payload.bin ]; then
+				cp -f /mnt/payload.bin /usr/share/fusee-nano/
+				umount /mnt
+				for i in {1..4} ; do
+					sleep 1
+					echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
+				done
+				break
+			fi
+		done
+	fi
+	echo 255 > /sys/class/leds/a5-v11\:red\:power/brightness
 fi
