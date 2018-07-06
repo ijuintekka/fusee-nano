@@ -10,8 +10,8 @@ if [ "${ACTION}" = "add" ]; then
 	if [ "${PRODUCT}" = "${APX_PRODID}" ]; then
 		${BINARY}
 		for i in {1..4}; do
-			sleep 1
 			echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
+			sleep 1
 		done
 	else
 		sleep 3
@@ -22,8 +22,8 @@ if [ "${ACTION}" = "add" ]; then
 				cp -f /mnt/payload.bin /usr/share/fusee-nano/
 				umount /mnt
 				for i in {1..4}; do
-					sleep 1
 					echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
+					sleep 1
 				done
 				break
 			fi
