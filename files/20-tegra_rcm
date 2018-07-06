@@ -20,9 +20,9 @@ if [ "${ACTION}" = "add" ]; then
 			umount /mnt
 			mount $i /mnt/
 			if [ -f /mnt/payload.bin ]; then
+				echo 0 > /sys/class/leds/a5-v11\:red\:power/brightness
 				cp -f /mnt/payload.bin /usr/share/fusee-nano/
 				umount /mnt
-				echo 0 > /sys/class/leds/a5-v11\:red\:power/brightness
 				for i in {1..4}; do
 					echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
 					sleep 1
