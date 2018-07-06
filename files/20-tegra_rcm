@@ -9,12 +9,12 @@ if [ "${ACTION}" = "add" ]; then
 	if [ "${PRODUCT}" = "${APX_PRODID}" ]; then
 		${BINARY}
 		echo 0 > /sys/class/leds/a5-v11\:red\:power/brightness
-		for i in {1..4}; do
-			echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
+		for i in $(seq 1 4); do
+			echo $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
 			sleep 1
 		done
 		echo 255 > /sys/class/leds/a5-v11\:red\:power/brightness
-	else
+	elif [ "${DEVTYPE}" = "usb_interface" ]; then
 		sleep 3
 		for i in $(ls /dev/sd*); do
 			umount /mnt
@@ -23,8 +23,8 @@ if [ "${ACTION}" = "add" ]; then
 				echo 0 > /sys/class/leds/a5-v11\:red\:power/brightness
 				cp -f /mnt/payload.bin /usr/share/fusee-nano/
 				umount /mnt
-				for i in {1..4}; do
-					echo -n $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
+				for i in $(seq 1 4); do
+					echo $(($i%2)) > /sys/class/leds/a5-v11\:blue\:system/brightness
 					sleep 1
 				done
 				echo 255 > /sys/class/leds/a5-v11\:red\:power/brightness
